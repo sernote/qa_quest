@@ -5,7 +5,6 @@ class Blockhelper:
         self.app = app
 
     def graphs(self):
-        wd = self.app.wd
         self.app.open_test_page()
         try:
             graphs = self.app.wd.find_elements_by_xpath('//section[@class="graphs"]/div')
@@ -15,7 +14,6 @@ class Blockhelper:
             return graphs
 
     def block_info(self):
-        wd = self.app.wd
         self.app.open_test_page()
         try:
             block_info = self.app.wd.find_elements_by_xpath('//section[@class="info"]/div')
@@ -25,7 +23,15 @@ class Blockhelper:
             return block_info
 
     def select_block_by_index(self, index):
-        wd = self.app.wd
         link = self.graphs()[index].find_element_by_xpath('a')
         self.app.log.info('Переходим к блоку '+link.text)
         link.click()
+
+    def req_list(self,index):
+        try:
+            req_list = self.block_info()[index].find_elements_by_xpath('.//aside/ul/li')
+        except self.app.exceptions.NoSuchElementException:
+            self.app.log.critical('Списка "Потребуется" нет в описании блока')
+        else:
+            return req_list
+
