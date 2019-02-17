@@ -16,6 +16,12 @@ class Application:
         self.log = logging
         self.log.info('Запуск тестов')
 
+    def open_test_page(self):
+        wd = self.wd
+        if wd.current_url != 'http://blog.csssr.ru/qa-engineer/':
+            wd.get('http://blog.csssr.ru/qa-engineer/')
+            self.log.info('Открываем тестируемую страницу')
+
     def destroy(self):
         self.wd.quit()
         self.log.info('Тесты завершены')
