@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.common import exceptions
 from selenium.webdriver.support.wait import WebDriverWait
 import logging
+from fixture.blocks import Blockhelper
 
 logging.basicConfig(level=logging.INFO, filename='log.log', filemode='w',
                     format='%(asctime)s - %(levelname)s - %(message)s')
@@ -15,6 +16,8 @@ class Application:
         self.waits = WebDriverWait
         self.log = logging
         self.log.info('Запуск тестов')
+        self.blocks = Blockhelper(self)
+
 
     def open_test_page(self):
         wd = self.wd
